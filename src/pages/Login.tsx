@@ -1,25 +1,27 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../redux/slices/authSlice";
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Logging in with:", { email, password });
-        // Add your login logic here
+        dispatch(login(email));
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 via-blue-300 to-blue-500">
-            <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-                <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">FlyAway Login</h2>
+        <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500 flex items-center justify-center font-sans">
+            <div className="bg-white/30 backdrop-blur-lg shadow-2xl rounded-3xl p-10 w-full max-w-md border border-white/40">
+                <h1 className="text-4xl font-bold text-white text-center mb-6 drop-shadow">FlyAway ✈️</h1>
                 <form onSubmit={handleLogin} className="space-y-5">
                     <div>
-                        <label className="block text-gray-700">Email</label>
+                        <label className="text-white font-medium">Email</label>
                         <input
                             type="email"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full mt-1 px-4 py-2 rounded-xl bg-white/70 border border-white/50 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white/80"
                             placeholder="you@example.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -28,10 +30,10 @@ const Login: React.FC = () => {
                     </div>
 
                     <div>
-                        <label className="block text-gray-700">Password</label>
+                        <label className="text-white font-medium">Password</label>
                         <input
                             type="password"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full mt-1 px-4 py-2 rounded-xl bg-white/70 border border-white/50 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white/80"
                             placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -41,13 +43,17 @@ const Login: React.FC = () => {
 
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+                        className="w-full bg-white text-blue-700 font-semibold py-2 rounded-xl hover:bg-blue-100 transition-all duration-200 shadow-md hover:shadow-xl"
                     >
                         Login
                     </button>
                 </form>
-                <p className="text-sm text-gray-600 mt-4 text-center">
-                    Don’t have an account? <a href="/signup" className="text-blue-600 font-medium">Sign up</a>
+
+                <p className="text-white mt-5 text-center text-sm">
+                    Don't have an account?{" "}
+                    <a href="/signup" className="underline hover:text-blue-100">
+                        Sign up
+                    </a>
                 </p>
             </div>
         </div>
