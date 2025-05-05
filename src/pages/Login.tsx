@@ -1,3 +1,4 @@
+// src/pages/Login.tsx
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/authSlice";
@@ -9,7 +10,21 @@ const Login: React.FC = () => {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        dispatch(login(email));
+
+        const storedUser = localStorage.getItem("flyaway-user");
+
+        if (!storedUser) {
+            alert("No user found. Please sign up first.");
+            return;
+        }
+
+        const user = JSON.parse(storedUser);
+        if (user.email === email && user.password === password) {
+            dispatch(login({ email, name: user.name }));
+            window.location.href = "/dashboard"; // navigate to dashboard
+        } else {
+            alert("Invalid credentials.");
+        }
     };
 
     return (

@@ -1,3 +1,4 @@
+// src/pages/Signup.tsx
 import React, { useState } from "react";
 
 const Signup: React.FC = () => {
@@ -14,8 +15,12 @@ const Signup: React.FC = () => {
             return;
         }
 
-        console.log("Sign up:", { name, email, password });
-        // Handle storing user or redirect to login
+        // Save user to localStorage
+        const user = { name, email, password };
+        localStorage.setItem("flyaway-user", JSON.stringify(user));
+
+        alert("Signup successful! You can now log in.");
+        window.location.href = "/"; // redirect to login
     };
 
     return (
