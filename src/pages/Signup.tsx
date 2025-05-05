@@ -1,4 +1,3 @@
-// src/pages/Signup.tsx
 import React, { useState } from "react";
 
 const Signup: React.FC = () => {
@@ -9,85 +8,65 @@ const Signup: React.FC = () => {
 
     const handleSignup = (e: React.FormEvent) => {
         e.preventDefault();
-
         if (password !== confirmPassword) {
             alert("Passwords do not match!");
             return;
         }
 
-        // Save user to localStorage
-        const user = { name, email, password };
-        localStorage.setItem("flyaway-user", JSON.stringify(user));
-
+        localStorage.setItem("flyaway-user", JSON.stringify({ name, email, password }));
         alert("Signup successful! You can now log in.");
-        window.location.href = "/"; // redirect to login
+        window.location.href = "/";
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500 flex items-center justify-center font-sans">
-            <div className="bg-white/30 backdrop-blur-lg shadow-2xl rounded-3xl p-10 w-full max-w-md border border-white/40">
-                <h1 className="text-4xl font-bold text-white text-center mb-6 drop-shadow">Create Account</h1>
+        <div className="min-h-screen bg-gradient-to-tr from-[#dbeafe] to-[#3b82f6] flex justify-center items-center p-4">
+            <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/30 rounded-3xl shadow-2xl p-8 space-y-6 transition-all">
+                <h2 className="text-4xl font-bold text-center text-white">Create Account</h2>
+                <p className="text-sm text-white text-center">Join FlyAway today</p>
                 <form onSubmit={handleSignup} className="space-y-5">
-                    <div>
-                        <label className="text-white font-medium">Name</label>
-                        <input
-                            type="text"
-                            className="w-full mt-1 px-4 py-2 rounded-xl bg-white/70 border border-white/50 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white/80"
-                            placeholder="John Doe"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <label className="text-white font-medium">Email</label>
-                        <input
-                            type="email"
-                            className="w-full mt-1 px-4 py-2 rounded-xl bg-white/70 border border-white/50 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white/80"
-                            placeholder="you@example.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <label className="text-white font-medium">Password</label>
-                        <input
-                            type="password"
-                            className="w-full mt-1 px-4 py-2 rounded-xl bg-white/70 border border-white/50 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white/80"
-                            placeholder="Create a password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <label className="text-white font-medium">Confirm Password</label>
-                        <input
-                            type="password"
-                            className="w-full mt-1 px-4 py-2 rounded-xl bg-white/70 border border-white/50 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white/80"
-                            placeholder="Repeat password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-
+                    <input
+                        type="text"
+                        placeholder="Full Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        required
+                        className="w-full px-5 py-3 rounded-xl bg-white/30 text-white placeholder-white/80 border border-white/40 focus:ring-2 focus:ring-white/60 outline-none"
+                    />
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        className="w-full px-5 py-3 rounded-xl bg-white/30 text-white placeholder-white/80 border border-white/40 focus:ring-2 focus:ring-white/60 outline-none"
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className="w-full px-5 py-3 rounded-xl bg-white/30 text-white placeholder-white/80 border border-white/40 focus:ring-2 focus:ring-white/60 outline-none"
+                    />
+                    <input
+                        type="password"
+                        placeholder="Confirm Password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        required
+                        className="w-full px-5 py-3 rounded-xl bg-white/30 text-white placeholder-white/80 border border-white/40 focus:ring-2 focus:ring-white/60 outline-none"
+                    />
                     <button
                         type="submit"
-                        className="w-full bg-white text-blue-700 font-semibold py-2 rounded-xl hover:bg-blue-100 transition-all duration-200 shadow-md hover:shadow-xl"
+                        className="w-full py-3 bg-white text-blue-700 font-semibold rounded-xl hover:bg-blue-100 transition duration-300 shadow-md"
                     >
                         Sign Up
                     </button>
                 </form>
-
-                <p className="text-white mt-5 text-center text-sm">
+                <p className="text-white text-sm text-center mt-4">
                     Already have an account?{" "}
-                    <a href="/" className="underline hover:text-blue-100">
-                        Login
+                    <a href="/" className="underline hover:text-blue-200">
+                        Log in
                     </a>
                 </p>
             </div>

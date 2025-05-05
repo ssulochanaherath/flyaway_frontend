@@ -1,4 +1,3 @@
-// src/pages/Login.tsx
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/slices/authSlice";
@@ -10,7 +9,6 @@ const Login: React.FC = () => {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-
         const storedUser = localStorage.getItem("flyaway-user");
 
         if (!storedUser) {
@@ -21,52 +19,44 @@ const Login: React.FC = () => {
         const user = JSON.parse(storedUser);
         if (user.email === email && user.password === password) {
             dispatch(login({ email, name: user.name }));
-            window.location.href = "/dashboard"; // navigate to dashboard
+            window.location.href = "/dashboard";
         } else {
             alert("Invalid credentials.");
         }
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-300 to-blue-500 flex items-center justify-center font-sans">
-            <div className="bg-white/30 backdrop-blur-lg shadow-2xl rounded-3xl p-10 w-full max-w-md border border-white/40">
-                <h1 className="text-4xl font-bold text-white text-center mb-6 drop-shadow">FlyAway ✈️</h1>
+        <div className="min-h-screen bg-gradient-to-tr from-[#dbeafe] to-[#3b82f6] flex justify-center items-center p-4">
+            <div className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/30 rounded-3xl shadow-2xl p-8 space-y-6 transition-all">
+                <h2 className="text-4xl font-bold text-center text-white">Welcome Back</h2>
+                <p className="text-sm text-white text-center">Login to your FlyAway account</p>
                 <form onSubmit={handleLogin} className="space-y-5">
-                    <div>
-                        <label className="text-white font-medium">Email</label>
-                        <input
-                            type="email"
-                            className="w-full mt-1 px-4 py-2 rounded-xl bg-white/70 border border-white/50 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white/80"
-                            placeholder="you@example.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div>
-                        <label className="text-white font-medium">Password</label>
-                        <input
-                            type="password"
-                            className="w-full mt-1 px-4 py-2 rounded-xl bg-white/70 border border-white/50 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-white/80"
-                            placeholder="••••••••"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-
+                    <input
+                        type="email"
+                        className="w-full px-5 py-3 rounded-xl bg-white/30 text-white placeholder-white/80 border border-white/40 focus:ring-2 focus:ring-white/60 outline-none"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        className="w-full px-5 py-3 rounded-xl bg-white/30 text-white placeholder-white/80 border border-white/40 focus:ring-2 focus:ring-white/60 outline-none"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
                     <button
                         type="submit"
-                        className="w-full bg-white text-blue-700 font-semibold py-2 rounded-xl hover:bg-blue-100 transition-all duration-200 shadow-md hover:shadow-xl"
+                        className="w-full py-3 bg-white text-blue-700 font-semibold rounded-xl hover:bg-blue-100 transition duration-300 shadow-md"
                     >
                         Login
                     </button>
                 </form>
-
-                <p className="text-white mt-5 text-center text-sm">
-                    Don't have an account?{" "}
-                    <a href="/signup" className="underline hover:text-blue-100">
+                <p className="text-white text-sm text-center mt-4">
+                    Don’t have an account?{" "}
+                    <a href="/signup" className="underline hover:text-blue-200">
                         Sign up
                     </a>
                 </p>
