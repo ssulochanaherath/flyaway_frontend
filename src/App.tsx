@@ -6,6 +6,7 @@ import store from "./redux/store";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import BookFlight from "./pages/BookFlight.tsx";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                     <Route path="/" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/book-flight" element={<BookFlight />} />
                 </Routes>
             </Router>
         </Provider>
