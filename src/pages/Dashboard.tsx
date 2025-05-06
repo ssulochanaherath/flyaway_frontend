@@ -5,10 +5,12 @@ import { logout } from "../redux/slices/authSlice";
 import planeImg from "../assets/images/plane.png";
 import { motion } from "framer-motion";
 import { LogOut, PlaneTakeoff, CalendarCheck } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard: React.FC = () => {
     const auth = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [scrollY, setScrollY] = useState(0);
 
     const handleLogout = () => {
@@ -16,6 +18,10 @@ const Dashboard: React.FC = () => {
             dispatch(logout());
             window.location.href = "/";
         }
+    };
+
+    const handleBookFlight = () => {
+        navigate("/book-flight");
     };
 
     useEffect(() => {
@@ -61,7 +67,8 @@ const Dashboard: React.FC = () => {
                 {/* Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10 px-4">
                     <motion.div
-                        className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:shadow-xl transition group"
+                        onClick={handleBookFlight}
+                        className="cursor-pointer bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:shadow-xl transition group"
                         whileHover={{ scale: 1.03 }}
                     >
                         <PlaneTakeoff className="text-blue-500 w-8 h-8 mb-3 mx-auto" />
@@ -79,6 +86,7 @@ const Dashboard: React.FC = () => {
                     </motion.div>
                 </div>
 
+                {/* Logout Button */}
                 <motion.button
                     onClick={handleLogout}
                     whileTap={{ scale: 0.95 }}
