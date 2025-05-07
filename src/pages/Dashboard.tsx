@@ -56,7 +56,7 @@ const Dashboard: React.FC = () => {
                     Welcome Aboard, {auth.name} ✈️
                 </motion.h1>
                 <motion.p
-                    className="text-lg text-gray-600"
+                    className="text-lg text-white"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
