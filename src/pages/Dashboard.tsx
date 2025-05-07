@@ -90,7 +90,7 @@ const Dashboard: React.FC = () => {
                 <motion.button
                     onClick={handleLogout}
                     whileTap={{ scale: 0.95 }}
-                    className="mt-20 inline-flex items-center gap-2 px-8 py-3 bg-red-600 text-white font-semibold rounded-full hover:bg-red-700 transition-all shadow-md"
+                    className="mt-20 inline-flex items-center gap-2 px-8 py-3 bg-red500 text-white font-semibold rounded-full hover:bg-red-700 transition-all shadow-md"
                 >
                     <LogOut size={20} />
                     Logout
