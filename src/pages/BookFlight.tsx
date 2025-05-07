@@ -61,7 +61,7 @@ const FlightBooking: React.FC = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white p-8 text-gray-800 font-sans">
             <div className="max-w-4xl mx-auto">
-                <h1 className="text-5xl font-extrabold text-center text-blue-700 mb-10">Book Your Flight</h1>
+                <h1 className="text-5xl font-extrabold text-center text-blue-700 mb-10">✈️ Book Your Flight</h1>
 
                 <form
                     onSubmit={handleSubmit}
