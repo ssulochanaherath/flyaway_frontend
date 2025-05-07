@@ -33,7 +33,7 @@ const Dashboard: React.FC = () => {
     const planeTranslate = Math.min(scrollY * 0.6, 500);
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-sky-200 via-white to-white relative text-gray-800 overflow-x-hidden font-sans">
+        <div className="min-h-screen bg-gradient-to-b from-sky-900 via-white to-black relative text-gray-800 overflow-x-hidden font-sans">
             {/* Plane Animation */}
             <img
                 src={planeImg}
