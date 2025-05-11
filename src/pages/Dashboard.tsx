@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
                         className="cursor-pointer bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:shadow-xl transition group"
                         whileHover={{ scale: 1.03 }}
                     >
-                        <PlaneTakeoff className="text-blue-500 w-8 h-8 mb-3 mx-auto" />
+                        <PlaneTakeoff className="text-blue-800 w-8 h-8 mb-3 mx-auto" />
                         <h2 className="text-2xl font-semibold mb-2">Book a Flight</h2>
                         <p className="text-gray-700">Plan your next trip with ease and excitement.</p>
                     </motion.div>
