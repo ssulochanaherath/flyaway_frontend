@@ -160,7 +160,21 @@ const Dashboard: React.FC = () => {
             </div>
 
             {/* Spacer */}
-            <div className="h-[130vh]" />
+            <div className="h-[10vh]" />
+
+            {/* Footer Contact Section */}
+            <footer className="relative z-10 mt-32 bg-gray-900 text-white text-center py-10 px-4">
+                <div className="max-w-4xl mx-auto space-y-4">
+                    <h2 className="text-xl font-semibold">FlyAway Customer Support</h2>
+                    <p>
+                        <strong>Phone:</strong> <a href="tel:+1234567890" className="text-blue-300 hover:underline">+1 (234) 567-890</a>
+                    </p>
+                    <p>
+                        <strong>Email:</strong> <a href="mailto:support@flyaway.com" className="text-blue-300 hover:underline">support@flyaway.com</a>
+                    </p>
+                    <p className="text-sm text-gray-400 mt-4">© {new Date().getFullYear()} FlyAway. All rights reserved.</p>
+                </div>
+            </footer>
         </div>
     );
 };
