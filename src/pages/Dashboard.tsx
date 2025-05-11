@@ -80,7 +80,7 @@ const Dashboard: React.FC = () => {
                         className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:shadow-xl transition group"
                         whileHover={{ scale: 1.03 }}
                     >
-                        <CalendarCheck className="text-green-500 w-8 h-8 mb-3 mx-auto" />
+                        <CalendarCheck className="text-green-800 w-8 h-8 mb-3 mx-auto" />
                         <h2 className="text-2xl font-semibold mb-2">My Bookings</h2>
                         <p className="text-gray-700">Review and manage all your previous and upcoming trips.</p>
                     </motion.div>
