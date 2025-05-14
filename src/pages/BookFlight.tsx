@@ -94,7 +94,7 @@ const FlightBooking: React.FC = () => {
                             <select
                                 value={selectedCountry}
                                 onChange={e => setSelectedCountry(e.target.value)}
-                                className="w-full p-3 border rounded-xl"
+                                className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-50 backdrop-blur-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             >
                                 <option value="">Select Country</option>
@@ -110,7 +110,7 @@ const FlightBooking: React.FC = () => {
                             <select
                                 value={fromAirport}
                                 onChange={e => setFromAirport(e.target.value)}
-                                className="w-full p-3 border rounded-xl"
+                                className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-50 backdrop-blur-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             >
                                 <option value="">From</option>
@@ -124,7 +124,7 @@ const FlightBooking: React.FC = () => {
                             <select
                                 value={toAirport}
                                 onChange={e => setToAirport(e.target.value)}
-                                className="w-full p-3 border rounded-xl"
+                                className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-50 backdrop-blur-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             >
                                 <option value="">To</option>
@@ -139,7 +139,7 @@ const FlightBooking: React.FC = () => {
                                 type="date"
                                 value={date}
                                 onChange={e => setDate(e.target.value)}
-                                className="w-full p-3 border rounded-xl"
+                                className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-50 backdrop-blur-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             />
                         </div>
@@ -150,7 +150,7 @@ const FlightBooking: React.FC = () => {
                                 value={passengers}
                                 min={1}
                                 onChange={e => setPassengers(parseInt(e.target.value))}
-                                className="w-full p-3 border rounded-xl"
+                                className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-50 backdrop-blur-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
                             />
                         </div>
