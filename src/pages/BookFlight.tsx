@@ -79,7 +79,7 @@ const FlightBooking: React.FC = () => {
     return (
         <div
             className="min-h-screen bg-cover bg-center bg-no-repeat px-6 py-10 font-sans text-gray-800"
-            style={{ backgroundImage: `url('/flight-bg.jpg')` }} // 🔄 Use your own image path or URL
+            style={{ backgroundImage: `url('/flight-bg.jpg')` }}
         >
             <div className="bg-white bg-opacity-20 backdrop-blur-md rounded-3xl shadow-2xl max-w-5xl mx-auto p-10">
                 <h1 className="text-4xl md:text-5xl font-bold text-center text-blue-800 mb-12">
