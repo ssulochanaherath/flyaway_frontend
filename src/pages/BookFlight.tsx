@@ -3,9 +3,7 @@ import React, { useState, useEffect } from "react";
 const countryAirports: Record<string, string[]> = {
     USA: ["New York (JFK)", "Los Angeles (LAX)", "Chicago (ORD)"],
     UK: ["London (LHR)", "Manchester (MAN)"],
-    Japan: ["Tokyo (HND)", "Osaka (KIX)"],
-    France: ["Paris (CDG)", "Nice (NCE)"],
-    UAE: ["Dubai (DXB)", "Abu Dhabi (AUH)"]
+    Japan: ["Tokyo (HND)", "Osaka (KIX)"]
 };
 
 const fakeFlights = [
@@ -28,199 +26,231 @@ const fakeFlights = [
 ];
 
 const FlightBooking: React.FC = () => {
-    const [selectedCountry, setSelectedCountry] = useState<string>("");
+    const [selectedCountry, setSelectedCountry] = useState("");
     const [airports, setAirports] = useState<string[]>([]);
-    const [fromAirport, setFromAirport] = useState<string>("");
-    const [toAirport, setToAirport] = useState<string>("");
-    const [date, setDate] = useState<string>("");
-    const [passengers, setPassengers] = useState<number>(1);
+    const [fromAirport, setFromAirport] = useState("");
+    const [toAirport, setToAirport] = useState("");
+    const [date, setDate] = useState("");
+    const [passengers, setPassengers] = useState(1);
     const [flights, setFlights] = useState<typeof fakeFlights>([]);
-    const [selectedFlight, setSelectedFlight] = useState<number | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [modalStep, setModalStep] = useState<"flights" | "seats" | "confirm">("flights");
+    const [selectedFlight, setSelectedFlight] = useState<typeof fakeFlights[0] | null>(null);
     const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
 
     const allSeats = Array.from({ length: 30 }, (_, i) => i + 1);
-    const takenSeats = [2, 7, 14, 23];
+    const takenSeats = [3, 8, 12, 18, 25];
 
     useEffect(() => {
         setAirports(selectedCountry ? countryAirports[selectedCountry] : []);
+        setFromAirport("");
+        setToAirport("");
     }, [selectedCountry]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setFlights(fakeFlights);
+        setIsModalOpen(true);
+        setModalStep("flights");
         setSelectedFlight(null);
         setSelectedSeats([]);
     };
 
-    const handleSeatSelect = (seat: number) => {
-        if (!takenSeats.includes(seat) && !selectedSeats.includes(seat)) {
-            setSelectedSeats([...selectedSeats, seat]);
+    const handleSeatToggle = (seat: number) => {
+        if (!takenSeats.includes(seat)) {
+            setSelectedSeats(prev =>
+                prev.includes(seat) ? prev.filter(s => s !== seat) : [...prev, seat]
+            );
         }
     };
 
+    const handleConfirm = () => {
+        setModalStep("confirm");
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setModalStep("flights");
+        setSelectedFlight(null);
+        setSelectedSeats([]);
+    };
+
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-100 to-white px-6 py-10 font-sans text-gray-800">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-6 py-10 font-sans text-gray-800">
             <div className="max-w-5xl mx-auto">
                 <h1 className="text-4xl md:text-5xl font-bold text-center text-blue-800 mb-12">
-                    ✈️ Plan Your Flight with Ease
+                    ✈️ Book Your Flight
                 </h1>
 
-                {/* Form */}
-                <form
-                    onSubmit={handleSubmit}
-                    className="bg-white p-8 rounded-3xl shadow-xl space-y-8 transition duration-300"
-                >
+                {/* Booking Form */}
+                <form onSubmit={handleSubmit} className="bg-white p-8 rounded-3xl shadow-xl space-y-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label className="block text-sm font-semibold mb-1">Select Country</label>
+                            <label className="block mb-2 font-medium">Country</label>
                             <select
                                 value={selectedCountry}
-                                onChange={(e) => setSelectedCountry(e.target.value)}
-                                className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                onChange={e => setSelectedCountry(e.target.value)}
+                                className="w-full p-3 border rounded-xl"
                                 required
                             >
                                 <option value="">Select Country</option>
-                                {Object.keys(countryAirports).map((country) => (
-                                    <option key={country} value={country}>
-                                        {country}
+                                {Object.keys(countryAirports).map(c => (
+                                    <option key={c} value={c}>
+                                        {c}
                                     </option>
                                 ))}
                             </select>
                         </div>
-
                         <div>
-                            <label className="block text-sm font-semibold mb-1">From Airport</label>
+                            <label className="block mb-2 font-medium">From Airport</label>
                             <select
                                 value={fromAirport}
-                                onChange={(e) => setFromAirport(e.target.value)}
-                                className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                onChange={e => setFromAirport(e.target.value)}
+                                className="w-full p-3 border rounded-xl"
                                 required
                             >
-                                <option value="">From Airport</option>
-                                {airports.map((airport) => (
-                                    <option key={airport} value={airport}>
-                                        {airport}
-                                    </option>
+                                <option value="">From</option>
+                                {airports.map(a => (
+                                    <option key={a}>{a}</option>
                                 ))}
                             </select>
                         </div>
-
                         <div>
-                            <label className="block text-sm font-semibold mb-1">To Airport</label>
+                            <label className="block mb-2 font-medium">To Airport</label>
                             <select
                                 value={toAirport}
-                                onChange={(e) => setToAirport(e.target.value)}
-                                className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                onChange={e => setToAirport(e.target.value)}
+                                className="w-full p-3 border rounded-xl"
                                 required
                             >
-                                <option value="">To Airport</option>
-                                {airports.map((airport) => (
-                                    <option key={airport} value={airport}>
-                                        {airport}
-                                    </option>
+                                <option value="">To</option>
+                                {airports.map(a => (
+                                    <option key={a}>{a}</option>
                                 ))}
                             </select>
                         </div>
-
                         <div>
-                            <label className="block text-sm font-semibold mb-1">Travel Date</label>
+                            <label className="block mb-2 font-medium">Date</label>
                             <input
                                 type="date"
                                 value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                onChange={e => setDate(e.target.value)}
+                                className="w-full p-3 border rounded-xl"
                                 required
                             />
                         </div>
-
                         <div>
-                            <label className="block text-sm font-semibold mb-1">Passengers</label>
+                            <label className="block mb-2 font-medium">Passengers</label>
                             <input
                                 type="number"
-                                min={1}
                                 value={passengers}
-                                onChange={(e) => setPassengers(parseInt(e.target.value))}
-                                className="w-full p-3 border rounded-xl focus:ring-2 focus:ring-blue-500"
+                                min={1}
+                                onChange={e => setPassengers(parseInt(e.target.value))}
+                                className="w-full p-3 border rounded-xl"
                                 required
                             />
                         </div>
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition"
-                    >
+                    <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl">
                         🔍 Search Flights
                     </button>
                 </form>
 
-                {/* Flights List */}
-                {flights.length > 0 && (
-                    <div className="mt-12">
-                        <h2 className="text-2xl font-bold mb-6 text-gray-700">🛫 Available Flights</h2>
-                        <div className="space-y-4">
-                            {flights.map((flight) => (
-                                <div
-                                    key={flight.id}
-                                    className="bg-white p-6 rounded-2xl shadow flex flex-col md:flex-row justify-between items-start md:items-center hover:shadow-lg transition"
-                                >
-                                    <div>
-                                        <p className="text-xl font-semibold text-blue-700">{flight.airline}</p>
-                                        <p className="text-sm text-gray-500 mt-1">
-                                            {flight.flightNumber} • {flight.time} • {flight.duration}
-                                        </p>
+                {/* Modal */}
+                {isModalOpen && (
+                    <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
+                        <div className="bg-white rounded-2xl p-6 w-full max-w-2xl relative shadow-xl">
+                            <button onClick={closeModal} className="absolute top-4 right-4 text-gray-600 text-2xl">
+                                &times;
+                            </button>
+
+                            {modalStep === "flights" && (
+                                <>
+                                    <h2 className="text-xl font-bold text-center mb-4">🛫 Select a Flight</h2>
+                                    <div className="space-y-4">
+                                        {flights.map(flight => (
+                                            <div
+                                                key={flight.id}
+                                                className="p-4 bg-gray-100 rounded-xl flex justify-between items-center hover:shadow"
+                                            >
+                                                <div>
+                                                    <h3 className="font-semibold text-blue-700">{flight.airline}</h3>
+                                                    <p className="text-sm text-gray-600">
+                                                        {flight.flightNumber} • {flight.time} • {flight.duration}
+                                                    </p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="font-bold text-blue-700">{flight.price}</p>
+                                                    <button
+                                                        onClick={() => {
+                                                            setSelectedFlight(flight);
+                                                            setModalStep("seats");
+                                                        }}
+                                                        className="text-sm mt-1 text-blue-600 hover:underline"
+                                                    >
+                                                        Select
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                    <div className="text-left md:text-right mt-4 md:mt-0">
-                                        <p className="text-lg text-blue-600 font-bold">{flight.price}</p>
+                                </>
+                            )}
+
+                            {modalStep === "seats" && selectedFlight && (
+                                <>
+                                    <h2 className="text-xl font-bold text-center mb-4">🪑 Choose Your Seats</h2>
+                                    <div className="grid grid-cols-6 gap-3 mb-6">
+                                        {allSeats.map(seat => {
+                                            const taken = takenSeats.includes(seat);
+                                            const selected = selectedSeats.includes(seat);
+                                            return (
+                                                <button
+                                                    key={seat}
+                                                    onClick={() => handleSeatToggle(seat)}
+                                                    disabled={taken}
+                                                    className={`w-10 h-10 rounded-md text-sm font-medium
+                            ${taken
+                                                        ? "bg-gray-300 cursor-not-allowed"
+                                                        : selected
+                                                            ? "bg-blue-600 text-white"
+                                                            : "bg-green-500 hover:bg-green-600 text-white"}`}
+                                                >
+                                                    {seat}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                    <button
+                                        onClick={handleConfirm}
+                                        disabled={selectedSeats.length === 0}
+                                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-xl"
+                                    >
+                                        ✅ Confirm Seats
+                                    </button>
+                                </>
+                            )}
+
+                            {modalStep === "confirm" && selectedFlight && (
+                                <>
+                                    <h2 className="text-xl font-bold text-center mb-4">🎉 Booking Confirmed!</h2>
+                                    <div className="space-y-3 text-center text-gray-700">
+                                        <p>Flight: <strong>{selectedFlight.flightNumber}</strong> by <strong>{selectedFlight.airline}</strong></p>
+                                        <p>Date: <strong>{date}</strong></p>
+                                        <p>From: <strong>{fromAirport}</strong> → To: <strong>{toAirport}</strong></p>
+                                        <p>Seats: <strong>{selectedSeats.join(", ")}</strong></p>
                                         <button
-                                            onClick={() => setSelectedFlight(flight.id)}
-                                            className="mt-1 text-sm text-blue-600 hover:underline"
+                                            onClick={closeModal}
+                                            className="mt-4 bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-xl"
                                         >
-                                            Select
+                                            Done
                                         </button>
                                     </div>
-                                </div>
-                            ))}
+                                </>
+                            )}
                         </div>
-                    </div>
-                )}
-
-                {/* Seat Selection */}
-                {selectedFlight && (
-                    <div className="mt-12">
-                        <h2 className="text-2xl font-bold text-gray-700 mb-6">🪑 Select Your Seats</h2>
-                        <div className="grid grid-cols-6 gap-4">
-                            {allSeats.map((seat) => {
-                                const isTaken = takenSeats.includes(seat);
-                                const isSelected = selectedSeats.includes(seat);
-                                return (
-                                    <button
-                                        key={seat}
-                                        disabled={isTaken}
-                                        onClick={() => handleSeatSelect(seat)}
-                                        className={`w-10 h-10 rounded-lg font-medium text-sm transition
-                                            ${isTaken
-                                            ? "bg-gray-300 cursor-not-allowed"
-                                            : isSelected
-                                                ? "bg-blue-600 text-white"
-                                                : "bg-green-500 hover:bg-green-600 text-white"}`}
-                                    >
-                                        {seat}
-                                    </button>
-                                );
-                            })}
-                        </div>
-
-                        {selectedSeats.length > 0 && (
-                            <div className="mt-6 bg-white p-5 rounded-xl shadow text-center">
-                                <p className="font-medium text-gray-700 mb-2">
-                                    Selected Seats: <span className="text-blue-700 font-semibold">{selectedSeats.join(", ")}</span>
-                                </p>
-                                <button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg">
-                                    ✅ Confirm Booking
-                                </button>
-                            </div>
-                        )}
                     </div>
                 )}
             </div>
