@@ -77,14 +77,17 @@ const FlightBooking: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white px-6 py-10 font-sans text-gray-800">
-            <div className="max-w-5xl mx-auto">
+        <div
+            className="min-h-screen bg-cover bg-center bg-no-repeat px-6 py-10 font-sans text-gray-800"
+            style={{ backgroundImage: `url('/flight-bg.jpg')` }} // 🔄 Use your own image path or URL
+        >
+            <div className="bg-white bg-opacity-90 backdrop-blur-md rounded-3xl shadow-2xl max-w-5xl mx-auto p-10">
                 <h1 className="text-4xl md:text-5xl font-bold text-center text-blue-800 mb-12">
                     ✈️ Book Your Flight
                 </h1>
 
                 {/* Booking Form */}
-                <form onSubmit={handleSubmit} className="bg-white p-8 rounded-3xl shadow-xl space-y-8">
+                <form onSubmit={handleSubmit} className="space-y-8">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label className="block mb-2 font-medium">Country</label>
@@ -212,7 +215,7 @@ const FlightBooking: React.FC = () => {
                                                     onClick={() => handleSeatToggle(seat)}
                                                     disabled={taken}
                                                     className={`w-10 h-10 rounded-md text-sm font-medium
-                            ${taken
+                                                        ${taken
                                                         ? "bg-gray-300 cursor-not-allowed"
                                                         : selected
                                                             ? "bg-blue-600 text-white"
