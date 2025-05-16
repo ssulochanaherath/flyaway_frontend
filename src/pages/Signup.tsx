@@ -75,7 +75,7 @@ const Signup: React.FC = () => {
                             />
                             <button
                                 type="submit"
-                                className="w-full py-3 bg-white text-blue-700 font-semibold rounded-xl hover:bg-blue-100 transition duration-300 shadow-md"
+                                className="w-full py-3 bg-white text-black-700 font-semibold rounded-xl hover:bg-blue-100 transition duration-300 shadow-md"
                             >
                                 Sign Up
                             </button>
