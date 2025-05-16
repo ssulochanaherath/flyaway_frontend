@@ -43,7 +43,7 @@ const Login: React.FC = () => {
                         className="w-full max-w-md bg-white/10 backdrop-blur-md border border-white/30 rounded-3xl shadow-2xl p-8 space-y-6 transition-all"
                     >
                         <h2 className="text-4xl font-bold text-center text-white">Welcome Back</h2>
-                        <p className="text-sm text-white text-center">Login to your FlyAway account</p>
+                        <p className="text-sm text-black text-center">Login to your FlyAway account</p>
                         <form onSubmit={handleLogin} className="space-y-5">
                             <input
                                 type="email"
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
                                 Login
                             </button>
                         </form>
-                        <p className="text-white text-sm text-center mt-4">
+                        <p className="text-black text-sm text-center mt-4">
                             Don’t have an account?{" "}
                             <a href="/signup" className="underline hover:text-blue-200">
                                 Sign up
