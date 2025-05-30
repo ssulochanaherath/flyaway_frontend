@@ -32,6 +32,10 @@ const Dashboard: React.FC = () => {
 
     const planeTranslate = Math.min(scrollY * 0.6, 500);
 
+    function handleMyBookings() {
+        navigate("/my-bookings");
+    }
+
     return (
         <div className="min-h-screen bg-gradient-to-b from-sky-900 via-white to-black relative text-gray-800 overflow-x-hidden font-sans">
             {/* Plane Animation */}
@@ -95,6 +99,7 @@ const Dashboard: React.FC = () => {
                     </motion.div>
 
                     <motion.div
+                        onClick={handleMyBookings}
                         className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:shadow-xl transition group"
                         whileHover={{ scale: 1.03 }}
                     >
