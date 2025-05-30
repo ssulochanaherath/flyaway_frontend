@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface Booking {
     id: number;
@@ -35,12 +36,23 @@ const sampleBookings: Booking[] = [
 ];
 
 const MyBookings: React.FC = () => {
+    const navigate = useNavigate();
+
     return (
         <div
             className="min-h-screen bg-cover bg-no-repeat bg-center px-6 py-10 font-sans"
             style={{ backgroundImage: `url('/flight-bg.jpg')` }}
         >
-            <div className="bg-white bg-opacity-20 backdrop-blur-lg shadow-2xl rounded-3xl max-w-5xl mx-auto p-10">
+            <div className="bg-white bg-opacity-20 backdrop-blur-lg shadow-2xl rounded-3xl max-w-5xl mx-auto p-10 relative">
+
+                {/* Back to Dashboard Button */}
+                <button
+                    onClick={() => navigate('/dashboard')}
+                    className="absolute top-6 left-6 text-sm md:text-base bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full shadow"
+                >
+                    ← Back to Dashboard
+                </button>
+
                 <h1 className="text-4xl md:text-5xl font-bold text-blue-800 text-center mb-10">
                     🧳 My Bookings
                 </h1>
