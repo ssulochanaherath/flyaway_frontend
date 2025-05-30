@@ -1,80 +1,79 @@
 import React from "react";
 
 interface Booking {
-    id: string;
+    id: number;
     flightNumber: string;
-    departure: string;
-    destination: string;
+    airline: string;
     date: string;
-    time: string;
-    status: "Upcoming" | "Completed";
+    from: string;
+    to: string;
+    seats: number[];
+    price: string;
 }
 
-const bookings: Booking[] = [
+const sampleBookings: Booking[] = [
     {
-        id: "1",
-        flightNumber: "AI202",
-        departure: "New York (JFK)",
-        destination: "London (LHR)",
-        date: "2025-06-15",
-        time: "08:30",
-        status: "Upcoming",
+        id: 1,
+        flightNumber: "FX101",
+        airline: "FlyAway Express",
+        date: "2025-06-05",
+        from: "New York (JFK)",
+        to: "London (LHR)",
+        seats: [5, 6],
+        price: "$450"
     },
     {
-        id: "2",
-        flightNumber: "AI301",
-        departure: "Paris (CDG)",
-        destination: "Rome (FCO)",
-        date: "2025-04-10",
-        time: "12:00",
-        status: "Completed",
-    },
+        id: 2,
+        flightNumber: "SK225",
+        airline: "SkyJet",
+        date: "2025-07-10",
+        from: "Tokyo (HND)",
+        to: "Los Angeles (LAX)",
+        seats: [14, 15, 16],
+        price: "$430"
+    }
 ];
 
 const MyBookings: React.FC = () => {
     return (
-        <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4">My Bookings</h2>
-            <div className="space-y-4">
-                {bookings.map((booking) => (
-                    <div
-                        key={booking.id}
-                        className="bg-white shadow-md p-4 rounded-lg border"
-                    >
-                        <div className="flex justify-between items-center">
-                            <div>
-                                <h3 className="text-lg font-semibold">
-                                    {booking.departure} → {booking.destination}
-                                </h3>
-                                <p className="text-sm text-gray-500">
-                                    {booking.date} | {booking.time}
-                                </p>
-                                <p className="text-sm">Flight: {booking.flightNumber}</p>
+        <div
+            className="min-h-screen bg-cover bg-no-repeat bg-center px-6 py-10 font-sans"
+            style={{ backgroundImage: `url('/flight-bg.jpg')` }}
+        >
+            <div className="bg-white bg-opacity-20 backdrop-blur-lg shadow-2xl rounded-3xl max-w-5xl mx-auto p-10">
+                <h1 className="text-4xl md:text-5xl font-bold text-blue-800 text-center mb-10">
+                    🧳 My Bookings
+                </h1>
+
+                {sampleBookings.length === 0 ? (
+                    <p className="text-center text-gray-600">You have no bookings yet.</p>
+                ) : (
+                    <div className="space-y-6">
+                        {sampleBookings.map(booking => (
+                            <div
+                                key={booking.id}
+                                className="bg-white bg-opacity-80 backdrop-blur-md rounded-xl shadow p-6 flex flex-col md:flex-row justify-between items-start md:items-center"
+                            >
+                                <div className="mb-4 md:mb-0">
+                                    <h2 className="text-lg font-semibold text-blue-700">
+                                        {booking.airline} • {booking.flightNumber}
+                                    </h2>
+                                    <p className="text-sm text-gray-700 mt-1">
+                                        {booking.from} → {booking.to}
+                                    </p>
+                                    <p className="text-sm text-gray-700">Date: {booking.date}</p>
+                                    <p className="text-sm text-gray-700">Seats: {booking.seats.join(", ")}</p>
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-lg font-bold text-blue-800">{booking.price}</p>
+                                    <button className="mt-2 px-4 py-1 bg-red-500 hover:bg-red-600 text-white text-sm rounded-xl">
+                                        Cancel
+                                    </button>
+                                </div>
                             </div>
-                            <div className="text-right">
-                <span
-                    className={`text-sm font-medium ${
-                        booking.status === "Upcoming"
-                            ? "text-blue-600"
-                            : "text-gray-500"
-                    }`}
-                >
-                  {booking.status}
-                </span>
-                                {booking.status === "Upcoming" && (
-                                    <div className="mt-2 space-x-2">
-                                        <button className="text-blue-500 hover:underline text-sm">
-                                            Reschedule
-                                        </button>
-                                        <button className="text-red-500 hover:underline text-sm">
-                                            Cancel
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
+                        ))}
                     </div>
-                ))}
+                )}
             </div>
         </div>
     );
